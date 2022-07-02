@@ -1,0 +1,25 @@
+name: Push the gprMax docker image to dockerhub
+on: [push] # When pushing to any branch then run this action
+
+# Env variable
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+  REPO_NAME: ${{secrets.REPO_NAME}}
+
+jobs:
+  push-image-to-docker-hub:  # job name
+    runs-on: ubuntu-latest  # runner name : (ubuntu latest version) 
+    steps:
+    - uses: actions/checkout@v2 # first action : checkout source code
+    - name: docker login
+      run: | # log into docker hub account
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
+    - name: Build the Docker image for GPU
+      run: ./docker_build.sh gpu
+    - name: Build the Docker image for CPU
+      run: ./docker_build.sh cpu
+    - name: Docker Push GPU image
+      run: docker push $DOCKER_USER/$REPO_NAME:gpu
+    - name: Docker Push CPU image
+      run: docker push $DOCKER_USER/$REPO_NAME:cpu
