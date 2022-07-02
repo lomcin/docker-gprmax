@@ -1,5 +1,7 @@
 # Dockerfile for gprMax
 
+## This README.md file needs to be updated. New scripts added.
+
 Run [gprMax](https://github.com/gprmax/gprMax) models in a Docker container.
 
 ## Why?
@@ -14,7 +16,7 @@ Install [Docker](https://docs.docker.com/get-docker/)
 Clone this repository
 
 ```
-git clone https://github.com/jasminium/docker-gprmax.git 
+git clone https://github.com/lomcin/docker-gprmax.git 
 ```
 
 and navigate to the repository on your system
@@ -30,7 +32,7 @@ This repository contains an example model, ```model.in``` which simulates the re
 To run the model enter the following command in a Terminal (Linux/Mac OS) or Windows PowerShell (Windows):
 
 ```bash
-docker run -v ${PWD}:/app jasminium/dockergprmax:latest model.in
+docker run -v ${PWD}:/app maggi10/gprmax:latest model.in
 ```
 
 gprMax will now run inside a docker container. The simulation output files will be saved in the current directory.
@@ -47,14 +49,14 @@ gprMax will now run inside a docker container. The simulation output files will 
 Different models can be run by copying the `.in` file into the current directory, running the above command and replacing ```model.in``` with the name of the new model. For example, the command for a new model ```my_new_model.in``` is:
 
 ```bash
-docker run -v ${PWD}:/app jasminium/dockergprmax:latest my_new_model.in
+docker run -v ${PWD}:/app maggi10/gprmax:latest my_new_model.in
 ```
 
 The command has 3 actions:
 
-1. Pull the jasminium/dockergprmax image from Docker Hub (if it's the first time the command has been run).
+1. Pull the maggi10/gprmax image from Docker Hub (if it's the first time the command has been run).
 2. Mount the local directory in the Docker container under /app.
-3. Run gprMax on the jasminium/dockergprmax image in a container with the specified parameters.
+3. Run gprMax on the maggi10/gprmax image in a container with the specified parameters.
 
 The container can be run from anywhere on your system. i.e. you do not need the Dockerfile. Just make sure you have a model file in the same directory as you're running the container.
 
@@ -62,7 +64,7 @@ The container can be run from anywhere on your system. i.e. you do not need the 
 standard gprMax parameters can be added to the end of above command. For example, the geometry of the simulation can be tested without running gprMax by running
 
 ```bash
-docker run -v ${PWD}:/app jasminium/dockergprmax:latest model.in --geometry-only
+docker run -v ${PWD}:/app maggi10/gprmax:latest model.in --geometry-only
 ```
 
 In this case the only output is the geometry file ```cylinder_half_space.vti```
